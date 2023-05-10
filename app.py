@@ -5,7 +5,7 @@ import googlemaps
 from flask import Flask, request, render_template
 
 # Set up OpenAI API client
-openai.api_key = os.environ.get('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')
+openai.api_key = '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'
 model_engine = "text-davinci-003"
 
 
