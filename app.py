@@ -9,7 +9,7 @@ openai.api_key = os.environ.get('sk-0wW4U5OX6HdJMOxVA95CT3BlbkFJaYHTNnxF2Z72RjBi
 model_engine = "text-davinci-003"
 
 # Set up Google Maps client
-gmaps = googlemaps.Client(key=os.environ.get('google_maps_key'))
+#gmaps = googlemaps.Client(key=os.environ.get('google_maps_key'))
 
 
 # Set up Flask app
@@ -41,7 +41,7 @@ def call_openai_api(prompt: str) -> str:
             temperature=0.5,
         )
 
-def get_locations_for_map(prompt_dict):
+'''def get_locations_for_map(prompt_dict):
     locations = []
     for i in range(len(prompt_dict)):
         location_full_name = f"{prompt_dict[i]['name']}, {prompt_dict[i]['country']}"
@@ -50,7 +50,7 @@ def get_locations_for_map(prompt_dict):
         lng = geocode_result[0]["geometry"]["location"]["lng"]
         locations.append({"name": location_full_name, "lat": lat, "lng": lng})
     return locations
-
+'''
 # Define route for home page
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -78,12 +78,12 @@ def home():
 
         
         # Get latitude and longitude for each location
-        locations = get_locations_for_map(prompt_dict)
+       # locations = get_locations_for_map(prompt_dict)
 
     # Render home page with input field and submit button
     return render_template("index.html",
                            prompt_html=prompt_html,
-                           locations=locations,
+                          
                            user_input_start_location=user_input_start_location,
                            user_input_description=user_input_description)
 
