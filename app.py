@@ -1,14 +1,16 @@
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 import openai
-import googlemaps
+#import googlemaps
 from flask import Flask, request, render_template
 
 # Set up OpenAI API client
-openai.api_key = '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'
+openai.organization = "org-Z9DWTtpE1n3vgv6dDG3i8mAh"
+openai.api_key = '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'
 model_engine = "text-davinci-003"
 
-
+# Set up Google Maps client
+#gmaps = googlemaps.Client(key=os.environ.get('google_maps_key'))
 
 
 # Set up Flask app
@@ -24,7 +26,7 @@ def populate_prompt(user_input_start_location: str, user_input_description: str)
             Here is the expected format: \
                 {{ \
                     0: {{\"name\": \"destination first name 1\", \"country\": \"country of destination 1\", \"description\": \"description of destination 1\"}}, \
-                    ... \
+                    \
                     4: {{\"name\": \"destination first name 5\", \"country\": \"country of destination 5\", \"description\": \"description of destination 5\"}}, \
                 }} \
             Any apostrophes should have a backlash in front of them."
@@ -40,12 +42,20 @@ def call_openai_api(prompt: str) -> str:
             temperature=0.5,
         )
 
-
-
+'''def get_locations_for_map(prompt_dict):
+    locations = []
+    for i in range(len(prompt_dict)):
+        location_full_name = f"{prompt_dict[i]['name']}, {prompt_dict[i]['country']}"
+        geocode_result = gmaps.geocode(location_full_name)
+        lat = geocode_result[0]["geometry"]["location"]["lat"]
+        lng = geocode_result[0]["geometry"]["location"]["lng"]
+        locations.append({"name": location_full_name, "lat": lat, "lng": lng})
+    return locations
+'''
 # Define route for home page
 @app.route("/", methods=["GET", "POST"])
 def home():
-    
+    #locations = []
     prompt_html = None
     user_input_start_location = ""
     user_input_description = ""
@@ -69,7 +79,7 @@ def home():
 
         
         # Get latitude and longitude for each location
-        
+        #locations = get_locations_for_map(prompt_dict)
 
     # Render home page with input field and submit button
     return render_template("index.html",
