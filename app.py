@@ -6,7 +6,7 @@ from flask import Flask, request, render_template
 
 # Set up OpenAI API client
 
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+openai.api_key = os.environ.get('OPENAI_API_KEYA')
 model_engine = "text-davinci-003"
 
 # Set up Google Maps client
